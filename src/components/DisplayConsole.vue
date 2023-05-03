@@ -54,6 +54,10 @@ export default {
       type: Number,
       required: true,
     },
+    isLoading: {
+      type: Boolean,
+      required: true,
+    },
   },
 };
 </script>
