@@ -11,7 +11,7 @@
           v-model="query"
         />
         <button
-          class="input-group-text"
+          class="input-group-text buttonBG"
           id="basic-addon2"
           type="button"
           @click="getWeatherData"
@@ -41,6 +41,19 @@
     >
     </display-console>
   </div>
+  <display-console
+    v-else
+    city="Kansas City"
+    country="US"
+    temperature="20"
+    condition="Cloudy"
+    description="Overcast skies"
+    icon="04d"
+    humidity="70"
+    minTemp="18"
+    maxTemp="22"
+  >
+  </display-console>
 </template>
 <script>
 import axios from "axios";
@@ -53,7 +66,7 @@ export default {
   },
   data() {
     return {
-      holder: "Enter a location or IP address to get the weather",
+      holder: "Enter a city or country to search",
       apiKey: "9f419e2b04d5c128aded9dab3a73f099",
       query: "",
       weatherData: null,
@@ -105,4 +118,18 @@ export default {
   },
 };
 </script>
-<style></style>
+<style>
+.buttonBG {
+  background-color: orangered;
+  color: white;
+  border-radius: 0px 12px 12px 0px;
+}
+.form-control {
+  border-radius: 12px;
+  max-height: auto;
+  height: 54px;
+}
+.form-control:focus {
+  border-color: #54b4d3;
+}
+</style>

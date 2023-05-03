@@ -1,6 +1,6 @@
 <template>
   <div class="container-fluid text-center py-4">
-    <h3 class="">QUICKMOSPHERE</h3>
+    <h3 class="mt-5"><span class="quick">QUICK</span>MOSPHERE</h3>
   </div>
 </template>
 <script>
@@ -11,4 +11,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+.quick {
+  color: orangered;
+}
+</style>
