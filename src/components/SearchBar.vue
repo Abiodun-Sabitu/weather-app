@@ -1,25 +1,26 @@
 <template>
   <section>
-    <div class="col-xl-7 container">
-      <div class="input-group mb-3">
-        <input
-          type="search"
-          class="form-control"
-          :placeholder="holder"
-          aria-label="A city or country"
-          aria-describedby="basic-addon2"
-          v-model="query"
-        />
-        <button
-          class="input-group-text buttonBG"
-          id="basic-addon2"
-          type="button"
-          @click="getWeatherData"
-        >
-          Get Weather
-        </button>
+    <form @submit.prevent="getWeatherData">
+      <div class="col-xl-7 container">
+        <div class="input-group mb-3">
+          <input
+            type="search"
+            class="form-control"
+            :placeholder="holder"
+            aria-label="A city or country"
+            aria-describedby="basic-addon2"
+            v-model="query"
+          />
+          <button
+            class="input-group-text buttonBG"
+            id="basic-addon2"
+            type="submit"
+          >
+            Get Weather
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   </section>
 
   <div class="text-center">
@@ -45,13 +46,14 @@
     v-else
     city="Kansas City"
     country="US"
-    temperature="20"
+    :temperature="Number('20')"
     condition="Cloudy"
     description="Overcast skies"
     icon="04d"
-    humidity="70"
-    minTemp="18"
-    maxTemp="22"
+    :humidity="Number('70')"
+    :minTemp="Number('18')"
+    :maxTemp="Number('22')"
+    :isLoading="isLoading"
   >
   </display-console>
 </template>
@@ -67,7 +69,7 @@ export default {
   data() {
     return {
       holder: "Enter a city or country to search",
-      apiKey: process.env.VUE_APP_API_KEY,
+      apiKey: import.meta.env.VITE_VUE_APP_API_KEY,
       query: "",
       weatherData: null,
       isLoading: false,
