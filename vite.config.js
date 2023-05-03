@@ -11,9 +11,4 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  define: {
-    "process.env": {
-      VUE_APP_API_KEY: JSON.stringify(process.env.VUE_APP_API_KEY),
-    },
-  },
 });
