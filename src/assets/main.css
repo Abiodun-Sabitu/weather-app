@@ -1,4 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;700;800&family=Open+Sans:wght@300&family=Poppins:wght@300;400;500;600;800&display=swap");
+
 * {
   margin: 0;
   padding: 0;
+  box-shadow: none !important;
+}
+
+body {
+  background: url(./images/pexel-BG.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center fixed;
+  height: 100vh;
+  overflow-x: hidden;
+  font-family: "Lexend", sans-serif;
 }
