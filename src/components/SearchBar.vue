@@ -67,7 +67,7 @@ export default {
   data() {
     return {
       holder: "Enter a city or country to search",
-      apiKey: "9f419e2b04d5c128aded9dab3a73f099",
+      apiKey: process.env.VUE_APP_API_KEY,
       query: "",
       weatherData: null,
       isLoading: false,
