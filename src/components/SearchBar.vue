@@ -6,13 +6,14 @@
           type="search"
           class="form-control"
           :placeholder="holder"
-          aria-label="Recipient's username"
+          aria-label="A city or country"
           aria-describedby="basic-addon2"
           v-model="query"
         />
         <button
           class="input-group-text"
           id="basic-addon2"
+          type="button"
           @click="getWeatherData"
         >
           Get Weather
@@ -20,6 +21,11 @@
       </div>
     </div>
   </section>
+
+  <div class="text-center">
+    <p v-if="hasError" class="text-danger">{{ hasError }}</p>
+    <p v-if="isLoading" class="text-info">Loading...</p>
+  </div>
   <div v-if="weatherData">
     <display-console
       :city="weatherData.name"
@@ -31,6 +37,7 @@
       :humidity="weatherData.main.humidity"
       :minTemp="weatherData.main.temp_min"
       :maxTemp="weatherData.main.temp_max"
+      :isLoading="isLoading"
     >
     </display-console>
   </div>
@@ -50,21 +57,50 @@ export default {
       apiKey: "9f419e2b04d5c128aded9dab3a73f099",
       query: "",
       weatherData: null,
+      isLoading: false,
+      hasError: null,
     };
   },
 
   methods: {
     getWeatherData() {
-      const endpoint = `https://api.openweathermap.org/data/2.5/weather?q=${this.query}&appid=${this.apiKey}&units=metric`;
-      axios
-        .get(endpoint)
-        .then((response) => {
-          this.weatherData = response.data;
-          console.log(this.weatherData);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (!this.query) {
+        return (
+          (this.hasError = "Please enter a location or city"),
+          (this.weatherData = null)
+        );
+      } else if (/^\d+$/.test(this.query) || this.query === " ") {
+        return (
+          (this.hasError = "Please enter a valid location or city"),
+          (this.weatherData = null)
+        );
+      } else {
+        this.hasError = null;
+        this.isLoading = true;
+
+        setTimeout(() => {
+          axios
+            .get(
+              `https://api.openweathermap.org/data/2.5/weather?q=${this.query}&appid=${this.apiKey}&units=metric`
+            )
+            .then((response) => {
+              this.weatherData = response.data;
+              return this.weatherData;
+            })
+            .catch((error) => {
+              if (error.response && error.response.status === 404) {
+                this.hasError = "Location or city not found";
+              } else {
+                this.hasError = "An error occurred. Please try again later.";
+              }
+              console.log(error);
+            })
+            .finally(() => {
+              this.isLoading = false;
+              this.query = "";
+            });
+        }, 3000);
+      }
     },
   },
 };
