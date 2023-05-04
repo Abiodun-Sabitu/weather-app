@@ -96,7 +96,7 @@ export default {
         setTimeout(() => {
           axios
             .get(
-              `https://api.openweathermap.org/data/2.5/weather?q=${this.query}&appid=${this.apiKey}`
+              `https://api.openweathermap.org/data/2.5/weather?q=${this.query}&appid=${this.apiKey}&units=metric`
             )
             .then((response) => {
               this.weatherData = response.data;
